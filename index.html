@@ -22,15 +22,7 @@
                 linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
             background-size: 30px 30px;
             color: #e2e8f0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow: hidden; /* ការពារ scrollbar ដែលមិនចាំបាច់ */
-        }
-        main {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
+            overflow-x: hidden; /* ការពារ horizontal scroll */
         }
         .embed-container {
             position: relative;
@@ -46,22 +38,31 @@
             width: 100%;
             height: 100%;
         }
-        /* CSS សម្រាប់ប្រព័ន្ធផ្ទាំង (Tab System) */
-        .page-content {
-            display: none;
-            flex-grow: 1;
-            flex-direction: column;
-        }
-        .page-content.active {
-            display: flex;
-        }
         .nav-link.active {
             color: #38bdf8;
-            border-bottom: 2px solid #38bdf8;
         }
-        /* CSS សម្រាប់ fade effect លើ slider */
-        #ai-news-content {
-            transition: opacity 0.5s ease-in-out;
+        
+        /* CSS សម្រាប់ Dot Navigation */
+        #dot-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 30;
+        }
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+        .nav-dot.active {
+            transform: scale(1.5);
+            border-color: #fff;
         }
 
         /* CSS សម្រាប់ផ្ទៃខាងក្រោយរូបមន្តគណិតវិទ្យា */
@@ -98,6 +99,24 @@
             from { transform: translateX(0) rotate(0deg); opacity: 1; }
             to { transform: translateX(110vw) rotate(360deg); opacity: 0; }
         }
+        
+        /* Keyframes សម្រាប់ចលនាអក្សរ */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 40px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+        .animate-fade-in-up {
+            animation-name: fadeInUp;
+            animation-duration: 0.8s;
+            animation-fill-mode: both;
+        }
+
     </style>
 </head>
 <body>
@@ -109,111 +128,114 @@
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-3xl font-bold text-white py-4">ផែនទីឌីជីថល</h1>
+                    <h1 class="text-2xl md:text-3xl font-bold text-white py-4">ផែនទីឌីជីថល</h1>
                 </div>
-                <nav>
+                <!-- Desktop Menu -->
+                <nav class="hidden md:block">
                     <ul class="flex items-center space-x-2 md:space-x-6">
                         <li><a href="#home" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ទំព័រដើម</a></li>
-                        <li><a href="#ai-news" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">បច្ចេកវិទ្យា</a></li>
+                        <li><a href="#ai-news" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">បច្ចេកវិទ្យាទំនើប</a></li>
                         <li><a href="#reviews" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ផែនទីឌីជីថល</a></li>
                         <li><a href="#documents" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ឯកសារ</a></li>
                         <li><a href="#resume" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ប្រវត្តិរូបសង្ខេប</a></li>
                     </ul>
                 </nav>
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
             </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/90">
+            <ul class="flex flex-col items-center space-y-2 py-4">
+                <li><a href="#home" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ទំព័រដើម</a></li>
+                <li><a href="#ai-news" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">បច្ចេកវិទ្យាទំនើប</a></li>
+                <li><a href="#reviews" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ផែនទីឌីជីថល</a></li>
+                <li><a href="#documents" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ឯកសារ</a></li>
+                <li><a href="#resume" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ប្រវត្តិរូបសង្ខេប</a></li>
+            </ul>
         </div>
     </header>
 
     <!-- មាតិកាចម្បង (Main Content) -->
     <main class="flex-grow z-10">
-        
-        <!-- ផ្ទាំងទី១៖ ទំព័រដើម (វីដេអូ) -->
-        <div id="home" class="page-content">
-            <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
-                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
-                    <h2 class="text-2xl font-bold mb-3 text-white">របៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || Georeferencing in ArcMap</h2>
-                    <div class="relative w-full flex-grow rounded-lg overflow-hidden mb-4">
-                        <iframe src="/img/hd2.jpg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="absolute top-0 left-0 w-full h-full"></iframe>
+        <div class="container mx-auto px-4 md:px-6 py-8 space-y-16">
+            
+            <!-- ផ្នែកទី១៖ ទំព័រដើម -->
+            <section id="home" class="page-section min-h-screen pt-16 flex flex-col">
+                <article id="home-slider" class="bg-slate-800/80 backdrop-blur-sm rounded-lg shadow-xl border border-slate-700 flex-grow relative overflow-hidden bg-cover bg-center transition-all duration-1000">
+                    <div class="absolute inset-0 bg-blue/50 flex flex-col justify-center items-center text-center p-4">
+                        <h2 id="home-slider-title" class="text-4xl md:text-6xl font-bold text-white"></h2>
+                        <p id="home-slider-subtitle" class="text-slate-200 mt-4 text-lg md:text-xl max-w-2xl"></p>
                     </div>
-                    <p class="text-slate-300 mb-4">វីដេអូនេះនឹងបង្ហាញលម្អិតអំពីរបៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || Georeferencing in ArcMap</p>
-                    <a href="https://www.youtube.com/watch?v=EAFXa_M4rDA&t=143s&ab_channel=RoatBunthoeun%28Technology%29" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="video-iphone">មើលវីដេអូពេញ...</a>
                 </article>
             </section>
-        </div>
 
-        <!-- ផ្ទាំងទី២៖ ព័ត៌មាន AI (មាន Slider) -->
-        <div id="ai-news" class="page-content">
-            <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
-                <article id="ai-news-content" class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
-                    <h2 id="ai-news-title" class="text-2xl font-bold mb-3 text-white"></h2>
-                    <div class="relative w-full flex-grow rounded-lg overflow-hidden mb-4">
-                        <img id="ai-news-image" src="/hd2.jpg" alt="រូបភាពតំណាងបច្ចេកវិទ្យា AI" class="absolute top-0 left-0 w-full h-full object-cover">
-                    </div>
-                    <p id="ai-news-description" class="text-slate-300 mb-4"></p>
-                    <a id="ai-news-link" href="/hd2.jpg" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300">អានបន្ត...</a>
+            <!-- ផ្នែកទី២៖ បច្ចេកវិទ្យាទំនើប -->
+            <section id="ai-news" class="page-section min-h-screen pt-16">
+                <div class="flex items-center justify-center mb-8">
+                    <svg class="w-10 h-10 text-sky-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z" /></svg>
+                    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">បច្ចេកវិទ្យាទំនើបចុងក្រោយ</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <a href="#" class="content-link bg-slate-800/80 backdrop-blur-sm rounded-lg shadow-xl border border-slate-700 overflow-hidden flex flex-col" data-content-id="ai-google"><img src="./hd2.jpg" class="w-full h-40 object-cover" alt="Google AI"><div class="p-4 flex flex-col flex-grow"><h4 class="font-bold text-lg text-white">ម៉ូឌែលភាសាថ្មីរបស់ Google</h4></div></a>
+                    <a href="#" class="content-link bg-slate-800/80 backdrop-blur-sm rounded-lg shadow-xl border border-slate-700 overflow-hidden flex flex-col" data-content-id="ai-health"><img src="./hd2.jpg" class="w-full h-40 object-cover" alt="AI in Health"><div class="p-4 flex flex-col flex-grow"><h4 class="font-bold text-lg text-white">AI ក្នុងវិស័យសុខាភិបាល</h4></div></a>
+                    <a href="#" class="content-link bg-slate-800/80 backdrop-blur-sm rounded-lg shadow-xl border border-slate-700 overflow-hidden flex flex-col" data-content-id="ai-work"><img src="./5.jpg" class="w-full h-40 object-cover" alt="Future of Work"><div class="p-4 flex flex-col flex-grow"><h4 class="font-bold text-lg text-white">AI និងអនាគតនៃការងារ</h4></div></a>
+                    <a href="#" class="content-link bg-slate-800/80 backdrop-blur-sm rounded-lg shadow-xl border border-slate-700 overflow-hidden flex flex-col" data-content-id="ai-quantum"><img src="./5.jpg" class="w-full h-40 object-cover" alt="Quantum Computing"><div class="p-4 flex flex-col flex-grow"><h4 class="font-bold text-lg text-white">កុំព្យូទ័រ Quantum</h4></div></a>
+                    <a href="#" class="content-link bg-slate-800/80 backdrop-blur-sm rounded-lg shadow-xl border border-slate-700 overflow-hidden flex flex-col" data-content-id="ai-blockchain"><img src="./5.jpg" class="w-full h-40 object-cover" alt="Blockchain"><div class="p-4 flex flex-col flex-grow"><h4 class="font-bold text-lg text-white">បច្ចេកវិទ្យា Blockchain</h4></div></a>
+                    <a href="#" class="content-link bg-slate-800/80 backdrop-blur-sm rounded-lg shadow-xl border border-slate-700 overflow-hidden flex flex-col" data-content-id="ai-iot"><img src="./hd2.jpg" class="w-full h-40 object-cover" alt="IoT"><div class="p-4 flex flex-col flex-grow"><h4 class="font-bold text-lg text-white">Internet of Things (IoT)</h4></div></a>
+                </div>
+            </section>
+            
+            <!-- ផ្នែកទី៣៖ ផែនទីឌីជីថល -->
+            <section id="reviews" class="page-section min-h-screen pt-16 flex flex-col">
+                <div class="flex items-center justify-center mb-8 flex-shrink-0">
+                    <svg class="w-10 h-10 text-sky-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m0 0v2.25m0-2.25h3.75m-3.75 0H5.25m4.5 0V6.75m0 0H6.75m2.25 0h3.75m3.75 8.25V9.75M15 9.75h3.75m-3.75 0H12.75m2.25 0V18m0 0h-3.75m3.75 0h3.75M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" /></svg>
+                    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">ផែនទីឌីជីថល</h2>
+                </div>
+                <article class="bg-slate-800/80 backdrop-blur-sm rounded-lg shadow-xl border border-slate-700 flex-grow relative overflow-hidden">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62539.52033336423!2d104.88850244335937!3d11.579227700000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3109513dc76a6be3%3A0x9590af464ea74054!2sPhnom%20Penh!5e0!3m2!1sen!2skh!4v1721347854321!5m2!1sen!2skh" 
+                        class="absolute top-0 left-0 w-full h-full"
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
                 </article>
             </section>
-        </div>
-        
-        <!-- ផ្ទាំងទី៣៖ รีวิวផលិតផល -->
-        <div id="reviews" class="page-content">
-            <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
-                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
-                    <h2 class="text-2xl font-bold mb-3 text-white">រូបភាពបច្ចេកវិទ្យាក្នុងឆ្នាំ 2025</h2>
-                    <div class="relative w-full flex-grow rounded-lg overflow-hidden mb-4">
-                        <img src="/5.jpg" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
-                    </div>
-                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាដែលមានគុណភាពខ្ពស់ និងតម្លៃសមរម្យ។</p>
-                    <a href="https://docs.google.com/document/d/1pijQGv6Q8jyl7AWaSaAFJDIAnENTwaPn/edit?usp=sharing&ouid=109617653389541770153&rtpof=true&sd=true" class="w-full h-full rounded-lg"></iframe><div class="absolute top-0 left-0 right-0 h-10"></div></div>'" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-laptop">អានពេញ...</a>
-                </article>
-            </section>
-        </div>
 
-        <!-- ផ្ទាំងទី៥៖ ឯកសារ (បានកែប្រែ Layout) -->
-        <div id="documents" class="page-content">
-            <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
+            <!-- ផ្នែកទី៤៖ ឯកសារ -->
+            <section id="documents" class="page-section min-h-screen pt-16">
                 <div class="w-full mx-auto">
-                    <h2 class="text-3xl font-bold mb-8 text-white text-center">Documents</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        <!-- Card 1: PDF -->
-                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-pdf">
-                            <svg class="w-20 h-20 mb-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                            </svg>
-                            <h3 class="text-xl font-bold text-white">របាយការណ៍ប្រចាំឆ្នាំ</h3>
-                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PDF</p>
-                        </a>
-                        <!-- Card 2: PowerPoint -->
-                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
-                            <svg class="w-20 h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-                            </svg>
-                            <h3 class="text-xl font-bold text-white">បទបង្ហាញ៖ អនាគត 5G</h3>
-                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PowerPoint</p>
-                        </a>
-                        <!-- Card 3: Word -->
-                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word">
-                            <svg class="w-20 h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                            </svg>
-                            <h3 class="text-xl font-bold text-white">Cloud Computing</h3>
-                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: Word</p>
-                        </a>
+                    <div class="flex items-center justify-center mb-8">
+                        <svg class="w-10 h-10 text-sky-400 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.75h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white text-center">documents</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-pdf"><svg class="w-16 h-16 md:w-20 md:h-20 mb-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg><h3 class="text-lg md:text-xl font-bold text-white">របាយការណ៍ (PDF)</h3></a>
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt"><svg class="w-16 h-16 md:w-20 md:h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg><h3 class="text-lg md:text-xl font-bold text-white">បទបង្ហាញ (PPT)</h3></a>
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word"><svg class="w-16 h-16 md:w-20 md:h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg><h3 class="text-lg md:text-xl font-bold text-white">(Word)</h3></a>
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-pdf"><svg class="w-16 h-16 md:w-20 md:h-20 mb-4 text-green-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h15.75c.621 0 1.125.504 1.125 1.125v6.75C21 20.496 20.496 21 19.875 21H4.125A1.125 1.125 0 013 19.875v-6.75zM12 3v9" /></svg><h3 class="text-lg md:text-xl font-bold text-white">ទិន្នន័យ (Excel)</h3></a>
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt"><svg class="w-16 h-16 md:w-20 md:h-20 mb-4 text-yellow-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z" /></svg><h3 class="text-lg md:text-xl font-bold text-white">គំនូសបច្ចេកទេស</h3></a>
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word"><svg class="w-16 h-16 md:w-20 md:h-20 mb-4 text-indigo-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg><h3 class="text-lg md:text-xl font-bold text-white">ឯកសារស្រាវជ្រាវ</h3></a>
                     </div>
                 </div>
             </section>
-        </div>
 
-        <!-- ផ្ទាំងទី៤៖ ប្រវត្តិរូបសង្ខេប -->
+            <!-- ផ្ទាំងទី៤៖ ប្រវត្តិរូបសង្ខេប (បានកែប្រែ Layout) -->
         <div id="resume" class="page-content">
             <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
                 <div class="w-full mx-auto flex flex-col flex-grow">
-                    <div class="bg-slate-800/80 backdrop-blur-sm p-6 md:p-8 rounded-lg shadow-xl border border-slate-700 flex-grow overflow-y-auto">
+                    <div class="bg-slate-800/80 backdrop-blur-sm p-6 md:p-8 rounded-lg shadow-xl border border-slate-1000 flex-grow overflow-y-auto">
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                             <!-- Left Column -->
                             <div class="lg:col-span-1 space-y-8">
                                 <div class="flex justify-center">
-                                    <img src="/logo.png" alt="រូបថតប្រវត្តិរូប" class="w-40.1 h-40.1 rounded-full border-4 border-slate-600">
+                                    <img src="./Logo.png" alt="រូបថតប្រវត្តិរូប" class="w-40 h-40 rounded-full border-4 border-slate-600">
                                 </div>
                                 <div>
                                     <h3 class="text-2xl font-bold text-white border-b-2 border-slate-700 pb-2 mb-4">ព័ត៌មានទំនាក់ទំនង</h3>
@@ -223,13 +245,23 @@
                                         <p><strong>អាសយដ្ឋាន:</strong> Phnom Penh, Cambodia</p>
                                     </div>
                                 </div>
-                                
+                                <div>
+                                    <h3 class="text-2xl font-bold text-white border-b-2 border-slate-700 pb-2 mb-4">ជំនាញ</h3>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">ArcGIS</span>
+                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">គណិតវិទ្យាកំរិតខ្ពស់</span>
+                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">GeoSerVer</span>
+                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">VisualCode</span>
+                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">ArcGIS Pro</span>
+                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">Git & GitHub</span>
+                                    </div>
+                                </div>
                             </div>
                             <!-- Right Column -->
                             <div class="lg:col-span-2 space-y-8">
                                 <div>
                                     <h2 class="text-5xl font-bold text-white">រ័ត្ន ប៊ុនធឿន</h2>
-                                    <!--<p class="text-2xl text-sky-400 mt-2">អ្នកអភិវឌ្ឍន៍គេហទំព័រ (Full-Stack Developer)</p>-->
+                                    <p class="text-2xl text-sky-400 mt-2">អ្នកអភិវឌ្ឍន៍គេហទំព័រ (Full-Stack Developer)</p>
                                 </div>
                                 <div>
                                     <h3 class="text-2xl font-bold text-white border-b-2 border-slate-700 pb-2 mb-4">ការអប់រំ និងបទពិសោធន៍ការងារ</h3>
@@ -245,22 +277,12 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <h3 class="text-2xl font-bold text-white border-b-2 border-slate-700 pb-2 mb-4">សញ្ញាបត្រកំុព្យូទ័រ</h3>
+                                    <h3 class="text-2xl font-bold text-white border-b-2 border-slate-700 pb-2 mb-4">សញ្ញាបត្រ</h3>
                                     <div>
-                                        <p class="text-slate-400">សាកលវិទ្យាល័យបណ្ឌិតយោធាទីក្រុងហាណូយ(IT) | 2016 - 2022</p>
+                                        <h4 class="text-xl font-semibold text-sky-400">បរិញ្ញាបត្រវិទ្យាសាស្ត្រកុំព្យូទ័រ</h4>
+                                        <p class="text-slate-400">សាកលវិទ្យាល័យបណ្ឌិតយោធាទីក្រុងហាណូយ | 2021 - 2022</p>
                                     </div>
                                 </div>
-                                <h3 class="text-2xl font-bold text-white border-b-2 border-slate-700 pb-2 mb-4">ជំនាញបច្ចេកទេស</h3>
-                                <div class="flex flex-wrap gap-2">
-                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">ArcGIS</span>
-                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">ArcGIS Pro</span>
-                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">Erdas</span>
-                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">GeoSerVer</span>
-                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">VisualCode</span>
-                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">គណិតវិទ្យាកំរិតខ្ពស់</span>
-                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">Ustation</span>
-                                        <span class="bg-slate-700 text-sky-300 px-3 py-1 rounded-full text-sm">Tichnogy...</span>
-                                    </div>
                             </div>
                         </div>
                     </div>
@@ -269,37 +291,94 @@
         </div>
 
     </main>
-
-    <!-- ទំព័រក្រោម (Footer) -->
-    <footer class="bg-slate-900 mt-auto flex-shrink-0 z-10">
-        <div class="container mx-auto px-6 py-4 text-center text-slate-400">
-            <p>&copy; 2025 ផែនទីឌីជីថល រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
         </div>
-    </footer>
+    </main>
 
-    <!-- Modal សម្រាប់បង្ហាញមាតិកាពេញ -->
-    <div id="content-modal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm hidden items-center justify-center z-50 p-4 transition-opacity duration-300">
-        <div id="modal-content-box" class="bg-slate-800/90 max-w-4xl w-full max-h-[90vh] rounded-lg shadow-xl border border-slate-700 flex flex-col">
-            <div class="p-4 border-b border-slate-700 flex justify-between items-center flex-shrink-0">
-                <h2 id="modal-title" class="text-2xl font-bold text-white"></h2>
-                <button id="modal-close-btn" class="text-slate-400 hover:text-white text-4xl leading-none">&times;</button>
-            </div>
-            <div id="modal-body" class="p-6 overflow-y-auto flex-grow">
-                <!-- Content will be injected here by JavaScript -->
-            </div>
-        </div>
-    </div>
+    <!-- Dot Navigation -->
+    <div id="dot-nav"></div>
 
+    <!-- JavaScript សម្រាប់គ្រប់គ្រងមុខងារទាំងអស់ -->
     <script>
-         document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const sections = document.querySelectorAll('.page-section');
             const navLinks = document.querySelectorAll('.nav-link');
-            const pages = document.querySelectorAll('.page-content');
-            let aiNewsInterval = null;
+            const mobileNavLinks = document.querySelectorAll('.nav-link-mobile');
+            const dotNav = document.getElementById('dot-nav');
+
+            // --- Home Slider Logic ---
+            const homeSlider = document.getElementById('home-slider');
+            const homeSliderTitle = document.getElementById('home-slider-title');
+            const homeSliderSubtitle = document.getElementById('home-slider-subtitle');
+            let homeSliderInterval = null;
+            let currentHomeSlideIndex = 0;
+
+            const homeSlides = [
+                {
+                    image: 'https://placehold.co/1920x1080/0f172a/38bdf8?text=បច្ចេកវិទ្យា+AI',
+                    title: 'សូមស្វាគមន៍មកកាន់ផែនទីឌីជីថល',
+                    subtitle: 'មជ្ឈមណ្ឌលព័ត៌មានបច្ចេកវិទ្យាទំនើប ផែនទីឌីជីថល ឯកសារ និងប្រវត្តិរូបសង្ខេប។'
+                },
+                {
+                    image: 'https://placehold.co/1920x1080/0f172a/f472b6?text=ផែនទីឌីជីថល',
+                    title: 'រុករកពិភពលោកជាមួយផែនទីឌីជីថល',
+                    subtitle: 'ស្វែងយល់ពីបច្ចេកវិទ្យាផែនទី និងប្រព័ន្ធ GIS ទំនើប។'
+                },
+                {
+                    image: 'https://placehold.co/1920x1080/0f172a/a3e635?text=Cyber+Security',
+                    title: 'ការពារទិន្នន័យរបស់អ្នក',
+                    subtitle: 'ផែនទីឌីជីថល។'
+                },
+                {
+                    image: 'https://placehold.co/1920x1080/0f172a/fb923c?text=Network+5G',
+                    title: 'យុគសម័យនៃបណ្តាញ 5G',
+                    subtitle: 'តើបច្ចេកវិទ្យា 5G នឹងផ្លាស់ប្តូរការទំនាក់ទំនងរបស់យើងយ៉ាងដូចម្តេច?'
+                },
+                {
+                    image: 'https://placehold.co/1920x1080/0f172a/818cf8?text=Virtual+Reality',
+                    title: 'ស្វែងយល់ពីបច្ចេកវិទ្យាផែនទី',
+                    subtitle: 'ថ្មីៗតាមរយៈបច្ចេកវិទ្យាArcGIS'
+                }
+            ];
+
+            function updateHomeSlide() {
+                const slide = homeSlides[currentHomeSlideIndex];
+                homeSlider.style.backgroundImage = `url(${slide.image})`;
+                homeSliderTitle.textContent = slide.title;
+                homeSliderSubtitle.textContent = slide.subtitle;
+
+                // Reset animation
+                homeSliderTitle.classList.remove('animate-fade-in-up');
+                homeSliderSubtitle.classList.remove('animate-fade-in-up');
+                void homeSliderTitle.offsetWidth; // Trigger reflow
+                homeSliderTitle.classList.add('animate-fade-in-up');
+                homeSliderSubtitle.style.animationDelay = '0.2s';
+                homeSliderSubtitle.classList.add('animate-fade-in-up');
+            }
+
+            function cycleHomeSlides() {
+                currentHomeSlideIndex = (currentHomeSlideIndex + 1) % homeSlides.length;
+                updateHomeSlide();
+            }
+
+            function startHomeSlider() {
+                if (homeSliderInterval) clearInterval(homeSliderInterval);
+                updateHomeSlide();
+                homeSliderInterval = setInterval(cycleHomeSlides, 10000);
+            }
+
+            startHomeSlider();
+
+            // --- Mobile Menu Logic ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
 
             // --- JavaScript សម្រាប់ផ្ទៃខាងក្រោយរូបមន្តគណិតវិទ្យា ---
             const background = document.getElementById('math-background');
-            const formulas = ['E=mc²', 'a²+b²=c²', 'Σ', '∫', 'ƒ(x)', '∂', '√', 'π', '∞', '∇', '∀', '∃', '∯', '∰'];
-            const colors = ['#38bdf8', '#ffffff', '#a78bfa', '#f472b6', '#fb923c', '#a3e635', '#4ade80'];
+            const formulas = ['E=mc²', 'a²+b²=c²', 'Σ', '∫', 'ƒ(x)', '∂', '√', 'π', '∞', '∇', '≈', '≠', '≤', '≥', '∀', '∃', '∯', '∰'];
+            const colors = ['#38bdf8', '#818cf8', '#ffffff', '#f472b6', '#fb923c', '#a3e635', '#4ade80'];
 
             function createSymbol() {
                 const symbol = document.createElement('span');
@@ -313,7 +392,6 @@
                 symbol.style.animationDuration = `${duration}s`;
 
                 const side = Math.floor(Math.random() * 4);
-
                 switch(side) {
                     case 0:
                         symbol.style.bottom = '-100px';
@@ -336,192 +414,48 @@
                         symbol.style.animationName = 'floatLeft';
                         break;
                 }
-                
                 background.appendChild(symbol);
-
-                setTimeout(() => {
-                    symbol.remove();
-                }, duration * 1000);
+                setTimeout(() => { symbol.remove(); }, duration * 1000);
             }
-
             setInterval(createSymbol, 300);
 
+            // --- Dot Navigation and Active Link Highlighting ---
+            const dotColors = ['bg-sky-400', 'bg-indigo-400', 'bg-purple-400', 'bg-pink-400', 'bg-amber-400'];
+            sections.forEach((section, index) => {
+                const dot = document.createElement('a');
+                dot.href = `#${section.id}`;
+                dot.classList.add('nav-dot', dotColors[index % dotColors.length]);
+                dotNav.appendChild(dot);
+            });
+            const navDots = document.querySelectorAll('.nav-dot');
 
-            // --- Slider សម្រាប់ផ្ទាំងព័ត៌មាន AI ---
-            const aiNewsData = [
-                {
-                    id: "ai-google",
-                    title: "ព័ត៌មាន AI ចុងក្រោយ៖ ម៉ូឌែលភាសាថ្មីរបស់ Google",
-                    image: "https://placehold.co/1920x1080/0f172a/94a3b8?text=Google+AI",
-                    description: "ក្រុមហ៊ុន Google បានប្រកាសចេញនូវម៉ូឌែលភាសាជំនាន់ថ្មី ដែលមានសមត្ថភាពយល់ និងបង្កើតអត្ថបទបានយ៉ាងស្មុគស្មាញជាងមុន។",
-                    fullText: "អត្ថបទពេញលេញអំពីម៉ូឌែលភាសាថ្មីរបស់ Google... Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-                },
-                {
-                    id: "ai-health",
-                    title: "ការប្រើប្រាស់ AI នៅក្នុងវិស័យសុខាភិបាល",
-                    image: "https://placehold.co/1920x1080/0f172a/60a5fa?text=AI+in+Health",
-                    description: "បច្ចេកវិទ្យា AI កំពុងជួយគ្រូពេទ្យក្នុងការវិភាគរោគសញ្ញា និងព្យាបាលជំងឺបានកាន់តែមានប្រសិទ្ធភាពជាងមុន។",
-                    fullText: "អត្ថបទពេញលេញអំពីការប្រើប្រាស់ AI ក្នុងវិស័យសុខាភិបាល... Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-                },
-                {
-                    id: "ai-work",
-                    title: "តើ AI នឹងផ្លាស់ប្តូរការងារយ៉ាងដូចម្តេច?",
-                    image: "https://placehold.co/1920x1080/0f172a/f472b6?text=Future+of+Work",
-                    description: "អ្នកជំនាញជាច្រើនជឿជាក់ថា AI នឹងបង្កើតឱកាសការងារថ្មីៗជាច្រើន។",
-                    fullText: "អត្ថបទពេញលេញអំពីអនាគតនៃការងារ... Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
-                }
-            ];
-            let currentNewsIndex = 0;
-            const aiNewsContent = document.getElementById('ai-news-content');
-            const aiNewsTitle = document.getElementById('ai-news-title');
-            const aiNewsImage = document.getElementById('ai-news-image');
-            const aiNewsDescription = document.getElementById('ai-news-description');
-            const aiNewsLink = document.getElementById('ai-news-link');
-
-            function updateAiNewsContent() {
-                if (!aiNewsContent) return;
-                const news = aiNewsData[currentNewsIndex];
-                aiNewsTitle.textContent = news.title;
-                aiNewsImage.src = news.image;
-                aiNewsDescription.textContent = news.description;
-                aiNewsLink.dataset.contentId = news.id;
-            }
-
-            function cycleAiNews() {
-                if (!aiNewsContent) return;
-                aiNewsContent.style.opacity = '0';
-                setTimeout(() => {
-                    currentNewsIndex = (currentNewsIndex + 1) % aiNewsData.length;
-                    updateAiNewsContent();
-                    aiNewsContent.style.opacity = '1';
-                }, 500);
-            }
-
-            function startAiNewsCycle() {
-                if (aiNewsInterval) clearInterval(aiNewsInterval);
-                updateAiNewsContent();
-                aiNewsInterval = setInterval(cycleAiNews, 10000);
-            }
-
-            function stopAiNewsCycle() {
-                clearInterval(aiNewsInterval);
-                aiNewsInterval = null;
-            }
-
-            // --- ប្រព័ន្ធគ្រប់គ្រងផ្ទាំង (Tab System) ---
-            function showPage(pageId) {
-                stopAiNewsCycle();
-                pages.forEach(page => page.classList.remove('active'));
-                navLinks.forEach(link => link.classList.remove('active'));
-                const targetPage = document.getElementById(pageId);
-                const targetLink = document.querySelector(`a[href="#${pageId}"]`);
-                if (targetPage) targetPage.classList.add('active');
-                if (targetLink) targetLink.classList.add('active');
-                if (pageId === 'ai-news') {
-                    startAiNewsCycle();
-                }
-            }
-
-            showPage('home');
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    const pageId = this.getAttribute('href').substring(1);
-                    showPage(pageId);
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.id;
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.hash === `#${id}`);
+                        });
+                        navDots.forEach(dot => {
+                            dot.classList.toggle('active', dot.hash === `#${id}`);
+                        });
+                    }
                 });
-            });
+            }, { threshold: 0.5 });
 
-            // --- JavaScript សម្រាប់ Content Modal ---
-            const contentModal = document.getElementById('content-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalBody = document.getElementById('modal-body');
-            const modalCloseBtn = document.getElementById('modal-close-btn');
-
-            const fullContent = {
-                'video-iphone': {
-                    title: 'វីដេអូពេញ៖ របៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || Georeferencing in ArcMap',
-                    type: 'video',
-                    content: 'https://www.youtube.com/watch?v=EAFXa_M4rDA&t=143s&ab_channel=RoatBunthoeun%28Technology%29',
-                    description: 'ការពិនិត្យលម្អិតអំពី ។'
-                },
-                'review-laptop': {
-                    title: 'ពេញលេញ៖ រូបភាពបច្ចេកវិទ្យាសម្រាប់ឆ្នាំ 2025',
-                    type: 'article',
-                    image: 'https://placehold.co/1920x1080/0f172a/f472b6?text=Laptop+Review',
-                    description: 'អត្ថបទពេញលេញ... Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
-                },
-                'doc-pdf': {
-                    title: 'របាយការណ៍ប្រចាំឆ្នាំ២០២៥ (PDF)',
-                    type: 'document',
-                    content: '<iframe src="https://drive.google.com/file/d/12Fx1JZR64jq3NmRquKr4-wT-WZtXl_9s/view?usp=sharing" class="w-full h-full rounded-lg"></iframe>'
-                },
-                'doc-ppt': {
-                    title: 'បទបង្ហាញ៖ អនាគត 5G (PowerPoint)',
-                    type: 'document',
-                    content: '<div class="relative w-full h-full"><iframe src="https://docs.google.com/presentation/d/1tsDLjJap17T7DJx380YStJY-QPn0awOb/edit?usp=sharing&ouid=109617653389541770153&rtpof=true&sd=true" class="w-full h-full rounded-lg"></iframe><div class="absolute top-0 left-0 right-0 h-10"></div></div>'
-                },
-                'doc-word': {
-                    title: 'Cloud Computing (Word)',
-                    type: 'document',
-                    content: '<div class="relative w-full h-full"><iframe src="https://docs.google.com/document/d/1pijQGv6Q8jyl7AWaSaAFJDIAnENTwaPn/edit?usp=sharing&ouid=109617653389541770153&rtpof=true&sd=true" class="w-full h-full rounded-lg"></iframe><div class="absolute top-0 left-0 right-0 h-10"></div></div>'
-                },
-                ...Object.fromEntries(aiNewsData.map(item => [item.id, {
-                    title: item.title,
-                    type: 'article',
-                    image: item.image,
-                    description: item.fullText
-                }]))
-            };
-
-            function openModal(contentId) {
-                const content = fullContent[contentId];
-                if (!content) return;
-
-                modalTitle.textContent = content.title;
-                let bodyHtml = '';
-
-                if (content.type === 'video') {
-                    bodyHtml = `
-                        <div class="embed-container bg-black rounded-lg mb-4">
-                            <iframe src="${content.content}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <p class="text-slate-300">${content.description}</p>
-                    `;
-                } else if (content.type === 'article') {
-                    bodyHtml = `
-                        <img src="${content.image}" alt="${content.title}" class="w-full h-auto max-h-96 object-cover rounded-lg mb-4">
-                        <p class="text-slate-300">${content.description}</p>
-                    `;
-                } else if (content.type === 'document') {
-                    bodyHtml = `<div class="w-full h-[70vh]">${content.content}</div>`;
+            sections.forEach(section => observer.observe(section));
+            
+            function handleNavLinkClick(event) {
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
                 }
-                modalBody.innerHTML = bodyHtml;
-                contentModal.classList.remove('hidden');
-                contentModal.classList.add('flex');
             }
 
-            function closeModal() {
-                modalBody.innerHTML = ''; // Clear content to stop video playback
-                contentModal.classList.add('hidden');
-                contentModal.classList.remove('flex');
-            }
-
-            document.addEventListener('click', (e) => {
-                if (e.target.closest('.content-link')) {
-                    e.preventDefault();
-                    const contentId = e.target.closest('.content-link').dataset.contentId;
-                    openModal(contentId);
-                }
-            });
-
-            modalCloseBtn.addEventListener('click', closeModal);
-            contentModal.addEventListener('click', (e) => {
-                if (e.target === contentModal) {
-                    closeModal();
-                }
-            });
+            navLinks.forEach(link => link.addEventListener('click', handleNavLinkClick));
+            mobileNavLinks.forEach(link => link.addEventListener('click', handleNavLinkClick));
+            navDots.forEach(dot => dot.addEventListener('click', handleNavLinkClick));
         });
     </script>
+
 </body>
 </html>
