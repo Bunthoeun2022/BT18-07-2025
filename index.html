@@ -2,13 +2,14 @@
 <html lang="km">
 <head>
     <meta charset="UTF-8">
+    <!-- This is the most important tag for responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>គេហទំព័រព័ត៌មានបច្ចេកវិទ្យា</title>
-    <!-- ការប្រើប្រាស់ Tailwind CSS សម្រាប់ធ្វើឲ្យគេហទំព័រស្អាត និង Responsive -->
+    <!-- Using Tailwind CSS for styling and responsiveness -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- ការប្រើប្រាស់ Font ខ្មែរ 'Kantumruy Pro' ពី Google Fonts -->
+    <!-- Using Khmer Font 'Kantumruy Pro' from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
     <style>
         html {
@@ -16,7 +17,7 @@
         }
         body {
             font-family: 'Kantumruy Pro', sans-serif;
-            background-color: #0f172a; /* ពណ៌ផ្ទៃខាងក្រោយគោល */
+            background-color: #0f172a; /* Main background color */
             background-image: 
                 linear-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
@@ -25,7 +26,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            overflow: hidden; /* ការពារ scrollbar ដែលមិនចាំបាច់ */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
         main {
             flex-grow: 1;
@@ -46,7 +47,7 @@
             width: 100%;
             height: 100%;
         }
-        /* CSS សម្រាប់ប្រព័ន្ធផ្ទាំង (Tab System) */
+        /* CSS for Tab System */
         .page-content {
             display: none;
             flex-grow: 1;
@@ -59,29 +60,29 @@
             color: #38bdf8;
             border-bottom: 2px solid #38bdf8;
         }
-        /* CSS សម្រាប់ fade effect លើ slider */
+        /* CSS for fade effect on slider */
         #ai-news-content {
             transition: opacity 0.5s ease-in-out;
         }
 
-        /* CSS សម្រាប់ផ្ទៃខាងក្រោយរូបមន្តគណិតវិទ្យា */
+        /* CSS for animated math background */
         #math-background {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* ដាក់នៅពីក្រោយគេបង្អស់ */
+            z-index: -1; /* Place it behind everything */
             overflow: hidden;
         }
         .math-symbol {
             position: absolute;
             font-family: 'Times New Roman', Times, serif;
-            user-select: none; /* ការពារការ select អក្សរ */
+            user-select: none; /* Prevent text selection */
             animation-timing-function: linear;
         }
 
-        /* Keyframes សម្រាប់ចលនាពីគ្រប់ទិសទី និងវិល */
+        /* Keyframes for animation from all directions and rotation */
         @keyframes floatUp {
             from { transform: translateY(0) rotate(0deg); opacity: 1; }
             to { transform: translateY(-110vh) rotate(360deg); opacity: 0; }
@@ -101,65 +102,156 @@
     </style>
 </head>
 <body>
-    <!-- ផ្ទៃខាងក្រោយថ្មីសម្រាប់រូបមន្តគណិតវិទ្យា -->
+    <!-- New background for math formulas -->
     <div id="math-background"></div>
 
-    <!-- បឋមកថា (Header) -->
+    <!-- Header -->
     <header class="bg-slate-900/80 backdrop-blur-md shadow-lg sticky top-0 z-20 flex-shrink-0">
         <div class="container mx-auto px-6">
             <div class="flex justify-between items-center">
                 <div>
-                    <h1 class="text-3xl font-bold text-white py-4"><a href="/index.html" class="">ផែនទីឌីជីថល</h1>
+                    <h1 class="text-3xl font-bold text-white py-4">ផែនទីឌីជីថល</a></h1>
                 </div>
-                <nav>
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:block">
                     <ul class="flex items-center space-x-2 md:space-x-6">
-                        <li><a href="#home" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ទំព័រដើម</a></li>
-                        <li><a href="#ai-news" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">បច្ចេកវិទ្យា</a></li>
-                        <li><a href="#reviews" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ផែនទីឌីជីថល</a></li>
-                        <li><a href="#images" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">រូបភាព</a></li>
-                        <li><a href="#documents" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ឯកសារ</a></li>
-                        <li><a href="#resume" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ប្រវត្តិរូបសង្ខេប</a></li>
+                        <li><a href="#home" data-page="home" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ទំព័រដើម</a></li>
+                        <li><a href="#ai-news" data-page="ai-news" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">កម្មវិធី</a></li>
+                        <li><a href="#reviews" data-page="reviews" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ផែនទីឌីជីថល</a></li>
+                        <li><a href="#images" data-page="images" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">រូបភាព</a></li>
+                        <li><a href="#documents" data-page="documents" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ឯកសារ</a></li>
+                        <li><a href="#resume" data-page="resume" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ប្រវត្តិរូបសង្ខេប</a></li>
                     </ul>
                 </nav>
+                <!-- Mobile Menu Button (Hamburger) -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="text-white focus:outline-none">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/90">
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95">
             <ul class="flex flex-col items-center space-y-2 py-4">
-                <li><a href="#home" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ទំព័រដើម</a></li>
-                <li><a href="#ai-news" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">បច្ចេកវិទ្យាទំនើប</a></li>
-                <li><a href="#reviews" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ផែនទីឌីជីថល</a></li>
-                <li><a href="#images" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">រូបភាព</a></li>
-                <li><a href="#documents" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ឯកសារ</a></li>
-                <li><a href="#resume" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ប្រវត្តិរូបសង្ខេប</a></li>
+                <li><a href="#home" data-page="home" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ទំព័រដើម</a></li>
+                <li><a href="#ai-news" data-page="ai-news" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">កម្មវិធី</a></li>
+                <li><a href="#reviews" data-page="reviews" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ផែនទីឌីជីថល</a></li>
+                <li><a href="#images" data-page="images" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">រូបភាព</a></li>
+                <li><a href="#documents" data-page="documents" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ឯកសារ</a></li>
+                <li><a href="#resume" data-page="resume" class="nav-link-mobile text-slate-300 hover:text-sky-400 transition-colors duration-300 py-2">ប្រវត្តិរូបសង្ខេប</a></li>
             </ul>
         </div>
     </header>
 
-    <!-- មាតិកាចម្បង (Main Content) -->
+    <!-- Main Content -->
     <main class="flex-grow z-10">
         
-        <!-- ផ្ទាំងទី១៖ ទំព័រដើម (វីដេអូ) -->
+        <!-- Page 1: Home (Video) -->
         <div id="home" class="page-content">
-            <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
+            <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
                 <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
                     <h2 class="text-2xl font-bold mb-3 text-white">របៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || Georeferencing in ArcMap</h2>
-                    <div class="relative w-full flex-grow rounded-lg overflow-hidden mb-4">
-                        <img src="./hd2.jpg" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P7.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
                     </div>
                     <p class="text-slate-300 mb-4">វីដេអូនេះនឹងបង្ហាញលម្អិតអំពីរបៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || Georeferencing in ArcMap</p>
-                    <a href="./11111.png" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="video-iphone">មើលវីដេអូពេញ...</a>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="video-1">មើលវីដេអូពេញ...</a>
                 </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">បច្ចេកវិទ្យាក្នុងការទាញយកចំណុចនិយាមការចេញពីទូរស័ព្ទ (Measure Map)</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P10.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img1">អានពេញ...</a>
+                </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">របៀបតម្លើងកម្មវិធី ArcGIS 10.4.1 || How to install ArcGIS 10.4.1</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P9.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">របៀបតម្លើងកម្មវិធី ArcGIS 10.4.1 || How to install ArcGIS 10.4.1</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="video-2">មើលវីដេអូពេញ...</a>
+                </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ការកាត់ផែនទីវ៉ិចទ័រ និងវ៉ិចទ័រក្នុងកម្មវិធី ArcMap 10.4.1</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P5.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img2">អានពេញ...</a>
+                </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">របៀប​បញ្ចូលផែនទី || How to add map in to ArcMap</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P17.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">របៀប​បញ្ចូលផែនទី || How to add map in to ArcMap</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="video-3">មើលវីដេអូពេញ...</a>
+                </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ផែនទីឋានលេខា ១:៣០០.០០០</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P12.jpg" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img3">អានពេញ...</a>
+                </article>
+
+                 <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">របៀបបញ្ចូល #Photos,#Videos,#Books...ពីComputerទៅ iPhone និងពីIPhone ទៅ Computer ដោយមិនចាំបាច់ដោតឌុយ</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P15.jpg" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">របៀបបញ្ចូល #Photos,#Videos,#Books...ពីComputerទៅ iPhone និងពីIPhone ទៅ Computer ដោយមិនចាំបាច់ដោតឌុយ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="video-4">មើលវីដេអូពេញ...</a>
+                </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ផែនទីឋានលេខា ១:៥០០.០០០</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P13.jpg" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img4">អានពេញ...</a>
+                </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ទស្សនាទេសភាពផែនទីអំពីទីតាំងស្រុកព្រៃកប្បាសខេត្តកែវ(Prey Kabas​ district Takeo province)</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P16.jpg" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ទស្សនាទេសភាពផែនទីអំពីទីតាំងស្រុកព្រៃកប្បាសខេត្តកែវ(Prey Kabas​ district Takeo province)</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="video-5">មើលវីដេអូពេញ...</a>
+                </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ប្លង់ការពារសុវត្ថិភាពជួនដល់ថ្នាក់ដឹកនាំ</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P14.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img5">អានពេញ...</a>
+                </article>
+                
             </section>
         </div>
 
-        <!-- ផ្ទាំងទី២៖ ព័ត៌មាន AI (មាន Slider) -->
+        <!-- Page 2: AI News (with Slider) -->
         <div id="ai-news" class="page-content">
-            <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
+            <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
                 <article id="ai-news-content" class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
                     <h2 id="ai-news-title" class="text-2xl font-bold mb-3 text-white"></h2>
                     <div class="relative w-full flex-grow rounded-lg overflow-hidden mb-4">
-                        <img id="ai-news-image" src="./5.jpg" alt="រូបភាពតំណាងបច្ចេកវិទ្យា AI" class="absolute top-0 left-0 w-full h-full object-cover">
+                        <img id="ai-news-image" src="#" alt="រូបភាពតំណាងបច្ចេកវិទ្យា AI" class="absolute top-0 left-0 w-full h-full object-cover">
                     </div>
                     <p id="ai-news-description" class="text-slate-300 mb-4"></p>
                     <a id="ai-news-link" href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300">អានបន្ត...</a>
@@ -167,122 +259,282 @@
             </section>
         </div>
         
-        <!-- ផ្ទាំងទី៣៖ ផលិតផល -->
+        <!-- Page 3: Reviews -->
         <div id="reviews" class="page-content">
-            <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
+            <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
                 <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
-                    <h2 class="text-2xl font-bold mb-3 text-white">រូបភាពបច្ចេកវិទ្យាក្នុងឆ្នាំ ២០២៥</h2>
-                    <div class="relative w-full flex-grow rounded-lg overflow-hidden mb-4">
-                        <img src="./5.jpg" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ផែនទីឋានលេខា ១:៣០០.០០០</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P12.jpg" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
                     </div>
-                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាផ្សែងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
-                    <a href="./5.jpg" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-laptop">អានពេញ...</a>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img3">អានពេញ...</a>
                 </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ផែនទីឋានលេខា ១:៥០០.០០០</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P13.jpg" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img4">អានពេញ...</a>
+                </article>
+
+                
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">បច្ចេកវិទ្យាក្នុងការទាញយកចំណុចនិយាមការចេញពីទូរស័ព្ទ (Measure Map)</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P10.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img1">អានពេញ...</a>
+                </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ការកាត់ផែនទីវ៉ិចទ័រ និងវ៉ិចទ័រក្នុងកម្មវិធី ArcMap 10.4.1</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P5.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img2">អានពេញ...</a>
+                </article>
+
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ប្លង់ការពារសុវត្ថិភាពជួនដល់ថ្នាក់ដឹកនាំ</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P14.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img5">អានពេញ...</a>
+                </article>
+                
             </section>
         </div>
 
-        <!-- ផ្ទាំងទី៥៖ ឯកសារ (បានកែប្រែ Layout) -->
+        <!-- Page 4: Images -->
         <div id="images" class="page-content">
-            <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
-                <div class="">
-                    <div class="mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"> <!-- កំណត់ជួរដេក និងជួរឈរ -->
-                        <a href="#" class="content-link bg-slate-700/70 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-img">
-                            <img class="w-80 h-30 mb-4 text-orange-400" src="./P14.png" alt="Icon PDF">
-                            <h3 class="text-xl font-bold text-white">ប្លង់ការពារថ្នាក់ដឹកនាំ</h3>
+            <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
+                <div class="w-full mx-auto">
+                     <h2 class="text-3xl font-bold mb-8 text-white text-center">Gallery</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Image Card 1 -->
+                         <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-02">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P9.png" alt="ផែនទីឋានលេខា">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី១៖ ផែនទីឋានលេខា</h3>
                         </a>
-                        <a href="#" class="content-link bg-slate-700/70 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-img">
-                            <img class="w-80 h-30 mb-4 text-orange-400" src="./P17.png" alt="Icon PDF">
-                            <h3 class="text-xl font-bold text-white">ប្រើ Tools IDW</h3>
+                        <!-- Image Card 2 -->
+                        <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-01">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P2.jpg" alt="បង្រៀនដល់កងរាជអាវុធហត្ថ">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី២៖ បង្រៀនដល់កងរាជអាវុធហត្ថ</h3>
                         </a>
-                        <a href="#" class="content-link bg-slate-700/70 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-img">
-                            <img class="w-80 h-30 mb-4 text-orange-400" src="./P9.png" alt="Icon PDF">
-                            <h3 class="text-xl font-bold text-white">ផែនទីឋានលេខា</h3>
+                        <!-- Add other image cards similarly -->
+                        <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-03">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P9.JPG" alt="ធាតុផ្សំនៃផែនទី">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី៣៖ ធាតុផ្សំនៃផែនទី</h3>
                         </a>
-                        <a href="#" class="content-link bg-slate-700/70 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-img">
-                            <img class="w-80 h-30 mb-4 text-orange-400" src="./P8.png" alt="Icon PDF">
-                            <h3 class="text-xl font-bold text-white">រូបភាពបង្ហាញពីសកម្មភាពសិក្សា</h3>
+                        <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-04">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P8.png" alt="សកម្មភាពសិក្សា">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី៤៖ សកម្មភាពសិក្សា</h3>
                         </a>
-                        <a href="#" class="content-link bg-slate-700/70 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-img">
-                            <img class="w-80 h-30 mb-4 text-orange-400" src="./P5.png" alt="Icon PDF">
-                            <h3 class="text-xl font-bold text-white">ការកាត់ផែនទីវ៉ិចទ័រ-វ៉ិចទ័រ</h3>
+                        <!-- Image Card 2 -->
+                         <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-05">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P17.png" alt="ប្រើ Tools IDW">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី៥៖ ប្រើ Tools IDW</h3>
                         </a>
-                        <a href="#" class="content-link bg-slate-700/70 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-img">
-                            <img class="w-80 h-30 mb-4 text-orange-400" src="./P6.png" alt="Icon PDF">
-                            <h3 class="text-xl font-bold text-white">រូបភាពបង្ហាញពីសណ្ឋានដី</h3>
+                        <!-- Add other image cards similarly -->
+                        <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-06">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P11.jpg" alt="ផែនទីឋានលេខា ១:១០០.០០០">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី៦៖ ផែនទីឋានលេខា ១:១០០.០០០</h3>
                         </a>
-                        <a href="#" class="content-link bg-slate-700/70 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-img">
-                            <img class="w-80 h-30 mb-4 text-orange-400" src="./P10.png" alt="Icon PDF">
-                            <h3 class="text-xl font-bold text-white">រូបភាពបង្ហាញពីកម្មវិធីទូរស័ព្ទ</h3>
+                        <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-07">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P12.jpg" alt="ផែនទីឋានលេខា ១:៣០០.០០០">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី៧៖ ផែនទីឋានលេខា ១:៣០០.០០០</h3>
                         </a>
-                        <a href="#" class="content-link bg-slate-700/70 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-img">
-                            <img class="w-80 h-30 mb-4 text-orange-400" src="./P7.png" alt="Icon PDF">
-                            <h3 class="text-xl font-bold text-white">ការកាត់ផែនទីរូបភាព-វ៉ិចទ័រ</h3>
+                        <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-08">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P13.jpg" alt="ប្រើ Tools IDW">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី៨៖ ផែនទីឋានលេខា ១:៥០០.០០០</h3>
                         </a>
+                        <!-- Add other image cards similarly -->
+                        <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-09">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P14.png" alt="ប្លង់ការពារសុវត្ថិភាពជួនដល់ថ្នាក់ដឹកនាំ">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី៩៖ ប្លង់ការពារសុវត្ថិភាពជួនដល់ថ្នាក់ដឹកនាំ</h3>
+                        </a>
+                        <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-10">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P15.jpg" alt="ផែនទីឋានលេខា ១:២៥០.០០០">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី១០៖ ផែនទីឋានលេខា ១:២៥០.០០០</h3>
+                        </a>
+                        <!-- Image Card 2 -->
+                         <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-11">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P16.jpg" alt="ផែនទីឋានលេខានៅភូមិសាស្រ្តវៀតណាម">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី១១៖ ផែនទីឋានលេខានៅភូមិសាស្រ្តវៀតណាម</h3>
+                        </a>
+                        <!-- Add other image cards similarly -->
+                        <a href="#" class="content-link group block bg-slate-800/80 rounded-lg overflow-hidden border border-slate-700 shadow-xl hover:shadow-sky-400/20 transition-all duration-300" data-content-id="img-12">
+                            <div class="relative">
+                                <img class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" src="./P17.png" alt="ប្រើប្រាស់ Tools IDW">
+                                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-300"></div>
+                            </div>
+                            <h3 class="text-lg font-bold text-white p-4">រូបភាពទី១២៖ ប្រើប្រាស់ Tools IDW</h3>
+                        </a>
+                       
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- ផ្ទាំងទី៥៖ ឯកសារ (បានកែប្រែ Layout) -->
+        <!-- Page 5: Documents -->
         <div id="documents" class="page-content">
-            <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
+            <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
                 <div class="w-full mx-auto">
                     <h2 class="text-3xl font-bold mb-8 text-white text-center">Documents</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <!-- Card 1: PDF -->
+                        <a href="./ការកាត់ផែនទីនៅក្នុង ArcGIS.pdf" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
+                            <svg class="w-20 h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការកាត់ផែនទីនៅក្នុង ArcGIS</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PowerPoint</p>
+                        </a>
+                        <!-- Card 2: PowerPoint -->
                         <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-pdf">
-                            <svg class="w-20 h-20 mb-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                            </svg>
+                            <svg class="w-20 h-20 mb-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
                             <h3 class="text-xl font-bold text-white">ការតម្លើងកម្មវិធី ArcGIS</h3>
                             <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PDF</p>
                         </a>
-                        <!-- Card 2: PowerPoint -->
-                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
-                            <svg class="w-20 h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-                            </svg>
-                            <h3 class="text-xl font-bold text-white">បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ</h3>
-                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PowerPoint</p>
-                        </a>
                         <!-- Card 3: Word -->
                         <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word">
-                            <svg class="w-20 h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                            </svg>
-                            <h3 class="text-xl font-bold text-white">ការកំណត់ Coordinate System នៅលើរូបភាពស្កេន</h3>
+                            <svg class="w-20 h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការកំណត់ Coordinate System</h3>
                             <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: Word</p>
                         </a>
                         <!-- Card 4: PDF -->
-                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
-                            <svg class="w-20 h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" />
-                            </svg>
-                            <h3 class="text-xl font-bold text-white">បទបង្ហាញ៖ បច្ចេកវិទ្យាផែនទីឌីជីថល</h3>
-                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PowerPoint</p>
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-pdf">
+                            <svg class="w-20 h-20 mb-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការតម្លើងកម្មវិធី ArcGIS</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PDF</p>
                         </a>
                         <!-- Card 5: PowerPoint -->
-                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word">
-                            <svg class="w-20 h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                            </svg>
-                            <h3 class="text-xl font-bold text-white">ការកាត់ផែនទីនៅក្នុង ArcGIS</h3>
-                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: Word</p>
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
+                            <svg class="w-20 h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
+                            <h3 class="text-xl font-bold text-white">បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PowerPoint</p>
                         </a>
                         <!-- Card 6: Word -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word">
+                            <svg class="w-20 h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការកំណត់ Coordinate System</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: Word</p>
+                        </a>
+                        <!-- Card 7: PDF -->
                         <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-pdf">
-                            <svg class="w-20 h-20 mb-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                            </svg>
-                            <h3 class="text-xl font-bold text-white">ការបង្កើតទិន្នន័យផែនទីនៅក្នុង ArcGIS</h3>
+                            <svg class="w-20 h-20 mb-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការតម្លើងកម្មវិធី ArcGIS</h3>
                             <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PDF</p>
+                        </a>
+                        <!-- Card 8: PowerPoint -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
+                            <svg class="w-20 h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
+                            <h3 class="text-xl font-bold text-white">បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PowerPoint</p>
+                        </a>
+                        <!-- Card 9: Word -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word">
+                            <svg class="w-20 h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការកំណត់ Coordinate System</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: Word</p>
+                        </a>
+                        <!-- Card 10: PDF -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-pdf">
+                            <svg class="w-20 h-20 mb-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការតម្លើងកម្មវិធី ArcGIS</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PDF</p>
+                        </a>
+                        <!-- Card 11: word -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word">
+                            <svg class="w-20 h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការកំណត់ Coordinate System</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: Word</p>
+                        </a>
+                        <!-- Card 12: PowerPoint -->
+                        <a href="./ការបង្កើតទិន្នន័យផែនទីនៅក្នុង ArcGIS.pptx" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
+                            <svg class="w-20 h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
+                            <h3 class="text-xl font-bold text-white">បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PowerPoint</p>
+                        </a>
+                        <!-- Card 13: Word -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word">
+                            <svg class="w-20 h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការកំណត់ Coordinate System</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: Word</p>
+                        </a>
+                        <!-- Card 14: PDF -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-pdf">
+                            <svg class="w-20 h-20 mb-4 text-red-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការតម្លើងកម្មវិធី ArcGIS</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PDF</p>
+                        </a>
+                        <!-- Card 15: PowerPoint -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
+                            <svg class="w-20 h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
+                            <h3 class="text-xl font-bold text-white">បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PowerPoint</p>
+                        </a>
+                        <!-- Card 16: powerpoint -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
+                            <svg class="w-20 h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
+                            <h3 class="text-xl font-bold text-white">បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PowerPoint</p>
+                        </a>
+                        <!-- Card 17: Word -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word">
+                            <svg class="w-20 h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការកំណត់ Coordinate System</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: Word</p>
+                        </a>
+                        <!-- Card 18: Word -->
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-word">
+                            <svg class="w-20 h-20 mb-4 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                            <h3 class="text-xl font-bold text-white">ការកំណត់ Coordinate System</h3>
+                            <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: Word</p>
                         </a>
                     </div>
                 </div>
             </section>
         </div>
 
-        <!-- ផ្ទាំងទី៤៖ ប្រវត្តិរូបសង្ខេប -->
+        <!-- Page 6: Resume -->
         <div id="resume" class="page-content">
             <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
                 <div class="w-full mx-auto flex flex-col flex-grow">
@@ -345,21 +597,20 @@
                 </div>
             </section>
         </div>
-
     </main>
 
-    <!-- ទំព័រក្រោម (Footer) -->
+    <!-- Footer -->
     <footer class="bg-slate-900 mt-auto flex-shrink-0 z-10">
         <div class="container mx-auto px-6 py-4 text-center text-slate-400">
             <p>&copy; 2025 ផែនទីឌីជីថល រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
         </div>
     </footer>
 
-    <!-- Modal សម្រាប់បង្ហាញមាតិកាពេញ -->
+    <!-- Modal for full content view -->
     <div id="content-modal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm hidden items-center justify-center z-50 p-4 transition-opacity duration-300">
         <div id="modal-content-box" class="bg-slate-800/90 max-w-4xl w-full max-h-[90vh] rounded-lg shadow-xl border border-slate-700 flex flex-col">
             <div class="p-4 border-b border-slate-700 flex justify-between items-center flex-shrink-0">
-                <h2 id="modal-title" class="text-2xl font-bold text-white"></h2>
+                <h2 id="modal-title" class="text-xl md:text-2xl font-bold text-white"></h2>
                 <button id="modal-close-btn" class="text-slate-400 hover:text-white text-4xl leading-none">&times;</button>
             </div>
             <div id="modal-body" class="p-6 overflow-y-auto flex-grow">
@@ -371,15 +622,19 @@
     <script>
          document.addEventListener('DOMContentLoaded', () => {
             const navLinks = document.querySelectorAll('.nav-link');
+            const navLinksMobile = document.querySelectorAll('.nav-link-mobile');
             const pages = document.querySelectorAll('.page-content');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
             let aiNewsInterval = null;
 
-            // --- JavaScript សម្រាប់ផ្ទៃខាងក្រោយរូបមន្តគណិតវិទ្យា ---
+            // --- Animated Math Background ---
             const background = document.getElementById('math-background');
             const formulas = ['E=mc²', 'a²+b²=c²', 'Σ', '∫', 'ƒ(x)', '√', '∭dxdydz','π','BunthoeunRoat','∞', '∇', '∀', '∃', '∑(n²+n+1)', '∰'];
             const colors = ['#38bdf8', '#ffffff', '#a78bfa', '#f472b6', '#fb923c', '#a3e635', '#4ade80'];
 
             function createSymbol() {
+                if (!background) return;
                 const symbol = document.createElement('span');
                 symbol.classList.add('math-symbol');
                 symbol.textContent = formulas[Math.floor(Math.random() * formulas.length)];
@@ -393,22 +648,22 @@
                 const side = Math.floor(Math.random() * 4);
 
                 switch(side) {
-                    case 0:
+                    case 0: // From bottom
                         symbol.style.bottom = '-100px';
                         symbol.style.left = `${Math.random() * 100}vw`;
                         symbol.style.animationName = 'floatUp';
                         break;
-                    case 1:
+                    case 1: // From top
                         symbol.style.top = '-100px';
                         symbol.style.left = `${Math.random() * 100}vw`;
                         symbol.style.animationName = 'floatDown';
                         break;
-                    case 2:
+                    case 2: // From left
                         symbol.style.left = '-100px';
                         symbol.style.top = `${Math.random() * 100}vh`;
                         symbol.style.animationName = 'floatRight';
                         break;
-                    case 3:
+                    case 3: // From right
                         symbol.style.right = '-100px';
                         symbol.style.top = `${Math.random() * 100}vh`;
                         symbol.style.animationName = 'floatLeft';
@@ -425,51 +680,51 @@
             setInterval(createSymbol, 300);
 
 
-            // --- Slider សម្រាប់ផ្ទាំងព័ត៌មាន AI ---
+            // --- AI News Slider ---
             const aiNewsData = [
-                {
-                    id: "ai-google",
+                 {
+                    id: "ai-qgis",
                     title: "តើ GQIS គីជាអ្វី?",
                     image: "https://placehold.co/1920x1080/0f172a/94a3b8?text=GQIS",
                     description: "-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។",
                     fullText: "គឺជាកម្មវិធី GIS ឥតគិតថ្លៃ និងបើកចំហទៅកាន់អ្នកប្រើប្រាស់។ នៅក្នុងវគ្គសិក្សានេះ អ្នកនឹងរៀនពីរបៀបប្រើប្រាស់ QGIS ដើម្បីបង្កើតផែនទី វិភាគទិន្នន័យ និងធ្វើការវិភាគលើលំហ។ វគ្គសិក្សានេះអាចរៀនបានទាំងអ្នកមិនចេះសោះ និងអ្នកដែលមានបទពិសោធន៍ខ្លះៗរួចហើយ។"
                 },
                 {
-                    id: "ai-google1",
+                    id: "ai-google-earth",
                     title: "តើ Google Eath Pro គីជាអ្វី?",
                     image: "https://placehold.co/1920x1080/0f172a/f22727?text=GoogleEarthPro",
                     description: "-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។",
                     fullText: "-Google Earth Pro គឺជាកម្មវិធី Desktop ដ៏មានអានុភាពសម្រាប់មើលផែនទីផ្កាយរណប និងធ្វើវិភាគភូមិសាស្ត្រដោយឥតគិតថ្លៃ។ វាផ្តល់នូវមុខងារល្អជាង Google Earth សាមញ្ញ (Online version) ហើយមានមុខងារ GIS បន្ថែម។"
                 },
                 {
-                    id: "ai-health",
+                    id: "ai-arcgis-pro",
                     title: "តើកម្មវិធី ArcGIS Pro ជាអ្វី?",
                     image: "https://placehold.co/1920x1080/0f172a/60a5fa?text=ArcGISPro",
                     description: "-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។",
                     fullText: "-ArcGIS Pro គឺជាកម្មវិធី GIS ចុងក្រោយ និងទំនើបបំផុតរបស់ Esri ។ នៅក្នុងវគ្គសិក្សានេះ អ្នកនឹងរៀនពីរបៀបប្រើប្រាស់ ArcGIS Pro ដើម្បីបង្កើត និងវិភាគផែនទី 2D និង 3D ធ្វើការវិភាគលើលំហ និងចែករំលែកការងាររបស់អ្នកជាមួយអ្នកដទៃ។"
                 },
                 {
-                    id: "ai-health1",
+                    id: "ai-geoserver",
                     title: "តើ GeoServer គីជាអ្វី?",
                     image: "https://placehold.co/1920x1080/0f172a/121fff?text=GeoServer",
                     description: "-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។",
                     fullText: "-GeoServer គឺជា software ប្រភពបើកចំហ (open-source) ដែលត្រូវបានប្រើសម្រាប់បម្រើ (serve) និងចែកចាយទិន្នន័យភូមិសាស្ត្រ (geospatial data) តាមអ៊ីនធឺណិត។ វាគាំទ្រការចេញផ្សាយទិន្នន័យជាទ្រង់ទ្រាយស្តង់ដារដូចជា:WMS (Web Map Service) – បង្ហាញផែនទីជា raster (ជារូបភាព), WFS (Web Feature Service) – បង្ហាញទិន្នន័យ vector ដែលអាចដូរទ្រង់ទ្រាយបាន, WCS (Web Coverage Service) – សម្រាប់ទិន្នន័យ raster ឬ gridded"
                 },
                 {
-                    id: "ai-work",
+                    id: "ai-arcgis",
                     title: "តើកម្មវិធី ArcGIS ជាអ្វី?",
                     image: "https://placehold.co/1920x1080/0f172a/f472b6?text=ArcGIS",
                     description: "-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។",
                     fullText: "-នៅក្នុងវគ្គសិក្សានេះ អ្នកនឹងរៀនពីរបៀបបង្កើតផែនទី វិភាគទិន្នន័យ និងស្វ័យប្រវត្តិកម្មលំហូរការងារដោយប្រើ ArcGIS ។ មិនថាអ្នកជាសិស្សថ្មី ឬធ្លាប់មានបទពិសោធន៍ខ្លះៗ វគ្គសិក្សានេះផ្តល់ឱ្យអ្នកនូវជំនាញដែលអ្នកត្រូវការដើម្បីទទួលបានជោគជ័យក្នុងវិស័យភូមិសាស្រ្តមួយនេះ។"
                 },
                 {
-                    id: "ai-work1",
+                    id: "ai-erdas",
                     title: "តើកម្មវិធី Erdas ជាអ្វី?",
                     image: "https://placehold.co/1920x1080/0f172a/f872d6?text=ERDAS",
                     description: "-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។",
                     fullText: "-ERDAS (ឬ ERDAS IMAGINE) គឺជា software ឯកទេសដែលប្រើសម្រាប់វិភាគ និងដំណើរការទិន្នន័យរូបភាពផ្កាយរណប (remote sensing imagery) និង ទិន្នន័យភូមិសាស្ត្រ (geospatial data processing)។ វាត្រូវបានគេប្រើយ៉ាងទូលំទូលាយក្នុងវិស័យ GIS, cartography, និងបច្ចេកវិទ្យាផ្កាយរណប។"
                 }
-            ];
+               ];
             let currentNewsIndex = 0;
             const aiNewsContent = document.getElementById('ai-news-content');
             const aiNewsTitle = document.getElementById('ai-news-title');
@@ -507,70 +762,83 @@
                 aiNewsInterval = null;
             }
 
-            // --- ប្រព័ន្ធគ្រប់គ្រងផ្ទាំង (Tab System) ---
+            // --- Tab System Management ---
             function showPage(pageId) {
                 stopAiNewsCycle();
                 pages.forEach(page => page.classList.remove('active'));
-                navLinks.forEach(link => link.classList.remove('active'));
+                
+                const allNavLinks = [...navLinks, ...navLinksMobile];
+                allNavLinks.forEach(link => {
+                    if (link.dataset.page === pageId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                
                 const targetPage = document.getElementById(pageId);
-                const targetLink = document.querySelector(`a[href="#${pageId}"]`);
                 if (targetPage) targetPage.classList.add('active');
-                if (targetLink) targetLink.classList.add('active');
+                
                 if (pageId === 'ai-news') {
                     startAiNewsCycle();
                 }
             }
 
+            // Initial page load
             showPage('home');
 
-            navLinks.forEach(link => {
+            // Add event listeners to all navigation links
+            [...navLinks, ...navLinksMobile].forEach(link => {
                 link.addEventListener('click', function(event) {
                     event.preventDefault();
-                    const pageId = this.getAttribute('href').substring(1);
+                    const pageId = this.dataset.page;
                     showPage(pageId);
+                    // If it's a mobile link, close the menu after clicking
+                    if (mobileMenu.classList.contains('hidden') === false) {
+                        mobileMenu.classList.add('hidden');
+                    }
                 });
             });
+            
+            // --- Mobile Menu Toggle ---
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
 
-            // --- JavaScript សម្រាប់ Content Modal ---
+
+            // --- Content Modal ---
             const contentModal = document.getElementById('content-modal');
             const modalTitle = document.getElementById('modal-title');
             const modalBody = document.getElementById('modal-body');
             const modalCloseBtn = document.getElementById('modal-close-btn');
 
             const fullContent = {
-                'video-iphone': {
-                    title: 'វីដេអូពេញ៖ ការត្រួតពិនិត្យមើល ពីរបៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || Georeferencing in ArcMap',
-                    type: 'video',
-                    content: './1111.png',
-                    description: '-របៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || ចុចLink៖ https://youtu.be/EAFXa_M4rDA?si=l8LaROsz5NV6MFEJ'
-                },
-                'review-laptop': {
-                    title: 'ពេញលេញ៖ រូបភាពបច្ចេកវិទ្យាសម្រាប់ឆ្នាំ ២០២៥',
-                    type: 'article',
-                    image: './5.jpg',
-                    description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។',
-                },
-                'doc-pdf': {
-                    title: 'ការកាត់ផែនទីនៅក្នុង ArcGIS (PDF)',
-                    type: 'document',
-                    content: '<iframe src="./ការកាត់ផែនទីនៅក្នុង ArcGIS.pdf" class="w-full h-full rounded-lg"></iframe>'
-                },
-                'doc-ppt': {
-                    title: 'ការកំណត់ Coordinate System នៅលើរូបភាពស្កេន (PowerPoint)',
-                    type: 'document',
-                    content: '<div class="relative w-full h-full"><iframe src="./ការកំណត់ Coordinate System នៅលើរូបភាពស្កេន.pdf" class="w-full h-full rounded-lg"></iframe><div class="absolute top-0 left-0 right-0 h-10"></div></div>'
-                },
-                'doc-word': {
-                    title: 'ការណែនាំ Tool នៅក្នុង ArcGIS (pptx)',
-                    type: 'document',
-                    content: '<div class="relative w-full h-full"><iframe src="./ការណែនាំ Tool នៅក្នុង ArcGIS.pptx" class="w-full h-full rounded-lg"></iframe><div class="absolute top-0 left-0 right-0 h-10"></div></div>'
-                },
-                ...Object.fromEntries(aiNewsData.map(item => [item.id, {
-                    title: item.title,
-                    type: 'article',
-                    image: item.image,
-                    description: item.fullText
-                }]))
+                'video-1': { title: 'របៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || Georeferencing in ArcMap', type: 'video', content: 'https://www.youtube.com/embed/EAFXa_M4rDA', description: 'របៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || Georeferencing in ArcMap' },
+                'video-2': { title: 'របៀបតម្លើងកម្មវិធី ArcGIS 10.4.1 || How to install ArcGIS 10.4.1', type: 'video', content: 'https://youtube.com/embed/mre6ORc3YMM', description: 'របៀបតម្លើងកម្មវិធី ArcGIS 10.4.1 || How to install ArcGIS 10.4.1' },
+                'video-3': { title: 'របៀប​បញ្ចូលផែនទី How to add map in to ArcMap', type: 'video', content: 'https://youtube.com/embed/T7XGyzi1tFE', description: 'របៀប​បញ្ចូលផែនទី How to add map in to ArcMap' },
+                'video-4': { title: 'របៀបបញ្ចូល #Photos,#Videos,#Books...ពីComputerទៅ iPhone និងពីIPhone ទៅ Computer ដោយមិនចាំបាច់ដោតឌុយ', type: 'video', content: 'https://youtube.com/embed/6mPOxzAMfyg', description: 'របៀបបញ្ចូល #Photos,#Videos,#Books...ពីComputerទៅ iPhone និងពីIPhone ទៅ Computer ដោយមិនចាំបាច់ដោតឌុយ' },
+                'video-5': { title: 'ទស្សនាទេសភាពផែនទីអំពីទីតាំងស្រុកព្រៃកប្បាសខេត្តកែវ(Prey Kabas​ district Takeo province)', type: 'video', content: 'https://youtube.com/embed/4dgTxsadOAQ', description: 'ទស្សនាទេសភាពផែនទីអំពីទីតាំងស្រុកព្រៃកប្បាសខេត្តកែវ(Prey Kabas​ district Takeo province)' },
+                'review-img1': { title: 'ពេញលេញ៖ បច្ចេកវិទ្យាក្នុងការទាញយកចំណុចនិយាមការចេញពីទូរស័ព្ទ (Measure Map)', type: 'article', image: './P10.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
+                'review-img2': { title: 'ពេញលេញ៖ ការកាត់ផែនទីវ៉ិចទ័រ និងវ៉ិចទ័រក្នុងកម្មវិធី ArcMap 10.4.1', type: 'article', image: './P5.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
+                'review-img3': { title: 'ពេញលេញ៖ ផែនទីឋានលេខា ១:៣០០.០០០', type: 'article', image: './P12.jpg', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
+                'review-img4': { title: 'ពេញលេញ៖ ផែនទីឋានលេខា ១:៥០០.០០០', type: 'article', image: './P13.jpg', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
+                'review-img5': { title: 'ពេញលេញ៖ ប្លង់ការពារសុវត្ថិភាពជួនដល់ថ្នាក់ដឹកនាំ', type: 'article', image: './P14.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
+                'doc-pdf': { title: 'ការតម្លើងកម្មវិធី ArcGIS (PDF)', type: 'document', content: '<p class="text-white text-center">មិនអាចបង្ហាញ PDF បានទេ។ សូមផ្តល់តំណសម្រាប់ទាញយក។</p>' },
+                'doc-ppt': { title: 'បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ (PowerPoint)', type: 'document', content: '<p class="text-white text-center">មិនអាចបង្ហាញ PowerPoint បានទេ។ សូមផ្តល់តំណសម្រាប់ទាញយក។</p>' },
+                'doc-word': { title: 'ការកំណត់ Coordinate System (Word)', type: 'document', content: '<p class="text-white text-center">មិនអាចបង្ហាញ Word បានទេ។ សូមផ្តល់តំណសម្រាប់ទាញយក។</p>' },
+                'img-02': { title: 'ផែនទីឋានលេខា', type: 'image', image: './P9.png' },
+                'img-01': { title: 'បង្រៀនដល់កងរាជអាវុធហត្ថ', type: 'image', image: './P2.jpg' },
+                'img-03': { title: 'ធាតុផ្សំនៃផែនទី', type: 'image', image: './P9.jpg' },
+                'img-04': { title: 'សកម្មភាពសិក្សា', type: 'image', image: './P8.png' },
+                'img-05': { title: 'ប្រើ Tools IDW', type: 'image', image: './P17.png' },
+                'img-06': { title: 'ផែនទីឋានលេខា ១:១០០.០០០', type: 'image', image: './P11.jpg' },
+                'img-07': { title: 'ផែនទីឋានលេខា ១:៣០០.០០០', type: 'image', image: './P12.jpg' },
+                'img-08': { title: 'ផែនទីឋានលេខា ១:៥០០.០០០', type: 'image', image: './P13.jpg' },
+                'img-09': { title: 'ប្លង់ការពារសុវត្ថិភាពជួនដល់ថ្នាក់ដឹកនាំ', type: 'image', image: 'P14.png' },
+                'img-10': { title: 'ផែនទីឋានលេខា ១:២៥០.០០០', type: 'image', image: './P15.jpg' },
+                'img-11': { title: 'ផែនទីឋានលេខានៅភូមិសាស្រ្តវៀតណាម', type: 'image', image: './P16.jpg' },
+                'img-12': { title: 'ប្រើប្រាស់ Tools IDW', type: 'image', image: './P17.png' },
+                ...Object.fromEntries(aiNewsData.map(item => [item.id, { title: item.title, type: 'article', image: item.image, description: item.fullText }]))
             };
 
             function openModal(contentId) {
@@ -581,19 +849,13 @@
                 let bodyHtml = '';
 
                 if (content.type === 'video') {
-                    bodyHtml = `
-                        <div class="embed-container bg-black rounded-lg mb-4">
-                            <iframe src="${content.content}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                        <p class="text-slate-300">${content.description}</p>
-                    `;
+                    bodyHtml = `<div class="embed-container bg-black rounded-lg mb-4"><iframe src="${content.content}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><p class="text-slate-300">${content.description}</p>`;
                 } else if (content.type === 'article') {
-                    bodyHtml = `
-                        <img src="${content.image}" alt="${content.title}" class="w-full h-auto max-h-96 object-cover rounded-lg mb-4">
-                        <p class="text-slate-300">${content.description}</p>
-                    `;
+                    bodyHtml = `<img src="${content.image}" alt="${content.title}" class="w-full h-auto max-h-[60vh] object-contain rounded-lg mb-4"><p class="text-slate-300 whitespace-pre-wrap">${content.description}</p>`;
+                } else if (content.type === 'image') {
+                    bodyHtml = `<img src="${content.image}" alt="${content.title}" class="w-full h-auto max-h-[75vh] object-contain rounded-lg">`;
                 } else if (content.type === 'document') {
-                    bodyHtml = `<div class="w-full h-[70vh]">${content.content}</div>`;
+                    bodyHtml = `<div class="w-full h-[70vh] flex items-center justify-center">${content.content}</div>`;
                 }
                 modalBody.innerHTML = bodyHtml;
                 contentModal.classList.remove('hidden');
@@ -607,9 +869,10 @@
             }
 
             document.addEventListener('click', (e) => {
-                if (e.target.closest('.content-link')) {
+                const link = e.target.closest('.content-link');
+                if (link) {
                     e.preventDefault();
-                    const contentId = e.target.closest('.content-link').dataset.contentId;
+                    const contentId = link.dataset.contentId;
                     openModal(contentId);
                 }
             });
@@ -625,16 +888,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
