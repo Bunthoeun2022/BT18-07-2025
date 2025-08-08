@@ -148,7 +148,6 @@
 
     <!-- Main Content -->
     <main class="flex-grow z-10">
-        
         <!-- Page 1: Home (Video) -->
         <div id="home" class="page-content">
             <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
@@ -270,6 +269,22 @@
         <!-- Page 3: Reviews -->
         <div id="reviews" class="page-content">
             <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ការកាត់ផែនទីរូបភាព និងវ៉ិចទ័រក្នុងកម្មវិធី ArcMap 10.4.1</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P20.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img7">អានពេញ...</a>
+                </article>
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ការធ្វើផែនទីបង្ហាញពីសណ្ឋានដី</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P19.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img6">អានពេញ...</a>
+                </article>
                 <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
                     <h2 class="text-2xl font-bold mb-3 text-white">ផែនទីឋានលេខា ១:៣០០.០០០</h2>
                     <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
@@ -478,10 +493,10 @@
         <div id="documents" class="page-content">
             <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
                 <div class="w-full mx-auto">
-                    <h2 class="text-3xl font-bold mb-8 text-white text-center">Documents</h2>
+                    <h2 class="text-3xl font-bold mb-8 text-white text-center">File and Software</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         <!-- Card 1: PDF -->
-                        <a href="./ការកាត់ផែនទីនៅក្នុង ArcGIS.pdf" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
+                        <a href="#" class="content-link bg-slate-800/80 p-6 rounded-lg flex flex-col items-center justify-center text-center border border-slate-700 shadow-xl hover:bg-slate-700/60 transition-colors duration-300" data-content-id="doc-ppt">
                             <svg class="w-20 h-20 mb-4 text-orange-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-1.621-.87a3 3 0 01-.879-2.122v-1.007m-5.13-7.525a3.375 3.375 0 016.26 0m-6.26 0a3.375 3.375 0 00-6.26 0m12.52 0a3.375 3.375 0 01-6.26 0M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z" /></svg>
                             <h3 class="text-xl font-bold text-white">ការកាត់ផែនទីនៅក្នុង ArcGIS</h3>
                             <p class="text-slate-400 mt-2">ប្រភេទឯកសារ: PowerPoint</p>
@@ -892,12 +907,14 @@
                 'review-img3': { title: 'ពេញលេញ៖ ផែនទីឋានលេខា ១:៣០០.០០០', type: 'article', image: './P12.jpg', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
                 'review-img4': { title: 'ពេញលេញ៖ ផែនទីឋានលេខា ១:៥០០.០០០', type: 'article', image: './P13.jpg', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
                 'review-img5': { title: 'ពេញលេញ៖ ប្លង់ការពារសុវត្ថិភាពជួនដល់ថ្នាក់ដឹកនាំ', type: 'article', image: './P14.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
-                'doc-pdf': { title: 'ការតម្លើងកម្មវិធី ArcGIS (PDF)', type: 'document', content: '<p class="text-white text-center">មិនអាចបង្ហាញ PDF បានទេ។ សូមផ្តល់តំណសម្រាប់ទាញយក។</p>' },
+                'review-img6': { title: 'ពេញលេញ៖ ប្ការធ្វើផែនទីបង្ហាញពីសណ្ឋានដី', type: 'article', image: './P19.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
+                'review-img7': { title: 'ពេញលេញ៖ ការកាត់ផែនទីវ៉ិចទ័រ និងវ៉ិចទ័រក្នុងកម្មវិធី ArcMap 10.4.1', type: 'article', image: './P20.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
+                'doc-pdf': { title: 'ការតម្លើងកម្មវិធី ArcGIS (PDF)', type: 'document', content: '<p class="text-white text-center"> https://drive.google.com/file/d/1fDmso7ri49f5ZgaJJtIo10NURVzznN8X/view?usp=sharing"</p>' },
                 'doc-ppt': { title: 'បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ (PowerPoint)', type: 'document', content: '<p class="text-white text-center">មិនអាចបង្ហាញ PowerPoint បានទេ។ សូមផ្តល់តំណសម្រាប់ទាញយក។</p>' },
                 'doc-word': { title: 'ការកំណត់ Coordinate System (Word)', type: 'document', content: '<p class="text-white text-center">មិនអាចបង្ហាញ Word បានទេ។ សូមផ្តល់តំណសម្រាប់ទាញយក។</p>' },
                 'img-00': { title: 'មិត្តរួមជំនាន់ BTV9', type: 'image', image: './P0.jpg' },
-                'img-02': { title: 'ផែនទីឋានលេខា', type: 'image', image: './P9.png' },
                 'img-01': { title: 'បង្រៀនដល់កងរាជអាវុធហត្ថ', type: 'image', image: './P2.jpg' },
+                'img-02': { title: 'ផែនទីឋានលេខា', type: 'image', image: './P9.png' },
                 'img-03': { title: 'ធាតុផ្សំនៃផែនទី', type: 'image', image: './P9.JPG' },
                 'img-04': { title: 'សកម្មភាពប្រជុំជាមួយមន្រ្តីបច្ចេកទេសភូមិសាស្រ្តភាគីថៃ', type: 'image', image: './P18.JPG' },
                 'img-05': { title: 'ប្រើ Tools IDW', type: 'image', image: './P17.png' },
