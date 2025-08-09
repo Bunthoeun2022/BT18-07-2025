@@ -117,11 +117,11 @@
                     <ul class="flex items-center space-x-2 md:space-x-6">
                         <li><a href="#home" data-page="home" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ទំព័រដើម</a></li>
                         <li><a href="#ai-news" data-page="ai-news" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">កម្មវិធី</a></li>
-                        <li><a href="#reviews" data-page="reviews" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ផែនទីឌីជីថល</a></li>
+                       <li><a href="#reviews" data-page="reviews" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ផែនទីឌីជីថល</a></li>
                         <li><a href="#images" data-page="images" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">រូបភាព</a></li>
                         <li><a href="#documents" data-page="documents" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ឯកសារ</a></li>
                         <li><a href="#resume" data-page="resume" class="nav-link text-slate-300 hover:text-sky-400 transition-colors duration-300 py-5 px-2">ប្រវត្តិរូបសង្ខេប</a></li>
-                    </ul>
+                        </ul>
                 </nav>
                 <!-- Mobile Menu Button (Hamburger) -->
                 <div class="md:hidden">
@@ -148,9 +148,51 @@
 
     <!-- Main Content -->
     <main class="flex-grow z-10">
+             
         <!-- Page 1: Home (Video) -->
         <div id="home" class="page-content">
             <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
+                <article id="program" class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <div class="relative w-full flex-grow rounded-lg overflow-hidden mb-4">
+                        <img id="ai-news-image1" src="./5.jpg" alt="រូបភាពតំណាងបច្ចេកវិទ្យា AI" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                </article>
+            </section>
+        </div>
+
+        <!-- Page 2: AI News (with Slider) -->
+        <div id="ai-news" class="page-content">
+            <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
+                <article id="ai-news-content" class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 id="ai-news-title" class="text-2xl font-bold mb-3 text-white"></h2>
+                    <div class="relative w-full flex-grow rounded-lg overflow-hidden mb-4">
+                        <img id="ai-news-image" src="#" alt="រូបភាពតំណាងបច្ចេកវិទ្យា AI" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p id="ai-news-description" class="text-slate-300 mb-4"></p>
+                    <a id="ai-news-link" href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300">អានបន្ត...</a>
+                </article>
+            </section>
+        </div>
+        
+        <!-- Page 3: Reviews -->
+        <div id="reviews" class="page-content">
+            <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ការធ្វើផែនទីបង្ហាញពីសណ្ឋានដី</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P19.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img6">អានពេញ...</a>
+                </article>
+                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
+                    <h2 class="text-2xl font-bold mb-3 text-white">ការកាត់ផែនទីរូបភាព និងវ៉ិចទ័រក្នុងកម្មវិធី ArcMap 10.4.1</h2>
+                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
+                        <img src="./P20.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
+                    </div>
+                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
+                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img7">អានពេញ...</a>
+                </article>
                 <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
                     <h2 class="text-2xl font-bold mb-3 text-white">ផែនទី ខ្នាតមាត្រដ្ឋាន​ 1:250.000​ || Map 1:250.000</h2>
                     <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
@@ -247,43 +289,6 @@
                     </div>
                     <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
                     <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img5">អានពេញ...</a>
-                </article>
-                
-            </section>
-        </div>
-
-        <!-- Page 2: AI News (with Slider) -->
-        <div id="ai-news" class="page-content">
-            <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
-                <article id="ai-news-content" class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
-                    <h2 id="ai-news-title" class="text-2xl font-bold mb-3 text-white"></h2>
-                    <div class="relative w-full flex-grow rounded-lg overflow-hidden mb-4">
-                        <img id="ai-news-image" src="#" alt="រូបភាពតំណាងបច្ចេកវិទ្យា AI" class="absolute top-0 left-0 w-full h-full object-cover">
-                    </div>
-                    <p id="ai-news-description" class="text-slate-300 mb-4"></p>
-                    <a id="ai-news-link" href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300">អានបន្ត...</a>
-                </article>
-            </section>
-        </div>
-        
-        <!-- Page 3: Reviews -->
-        <div id="reviews" class="page-content">
-            <section class="container mx-auto px-6 py-5 flex flex-col flex-grow">
-                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
-                    <h2 class="text-2xl font-bold mb-3 text-white">ការកាត់ផែនទីរូបភាព និងវ៉ិចទ័រក្នុងកម្មវិធី ArcMap 10.4.1</h2>
-                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
-                        <img src="./P20.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
-                    </div>
-                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
-                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img7">អានពេញ...</a>
-                </article>
-                <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
-                    <h2 class="text-2xl font-bold mb-3 text-white">ការធ្វើផែនទីបង្ហាញពីសណ្ឋានដី</h2>
-                    <div class="relative w-full aspect-video rounded-lg overflow-hidden mb-4">
-                        <img src="./P19.png" alt="រូបភាព Laptop" class="absolute top-0 left-0 w-full h-full object-cover">
-                    </div>
-                    <p class="text-slate-300 mb-4">ស្វែងយល់ពីបច្ចេកវិទ្យាទំនើបក្នុងការធ្វើផែនទីផ្សេងៗ ដែលមានគុណភាពខ្ពស់ក្នុងឆ្នាំ២០២៥នេះ</p>
-                    <a href="#" class="content-link inline-block mt-2 text-sky-400 hover:text-sky-300" data-content-id="review-img6">អានពេញ...</a>
                 </article>
                 <article class="bg-slate-800/80 backdrop-blur-sm p-6 rounded-lg shadow-xl border border-slate-700 flex flex-col flex-grow">
                     <h2 class="text-2xl font-bold mb-3 text-white">ផែនទីឋានលេខា ១:៣០០.០០០</h2>
@@ -754,8 +759,7 @@
             }
 
             setInterval(createSymbol, 300);
-
-
+            
             // --- AI News Slider ---
             const aiNewsData = [
                  {
