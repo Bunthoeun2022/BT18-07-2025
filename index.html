@@ -636,6 +636,7 @@
             </section>
         </div>
 
+
         <!-- Page 6: Resume -->
         <div id="resume" class="page-content">
             <section class="container mx-auto px-6 py-8 flex flex-col flex-grow">
@@ -928,12 +929,14 @@
             const modalShareActions = document.getElementById('modal-share-actions'); // Get the new share actions div
 
             const fullContent = {
+                // Videos
                 'video-0': { title: 'ផែនទី ខ្នាតមាត្រដ្ឋាន​ 1:250.000​ || Map 1:250.000', type: 'video', content: 'https://youtube.com/embed/ib_QyXhD2oM', description: 'ផែនទី ខ្នាតមាត្រដ្ឋាន​ 1:250.000​ || Map 1:250.000' },
                 'video-1': { title: 'របៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || Georeferencing in ArcMap', type: 'video', content: 'https://www.youtube.com/embed/EAFXa_M4rDA', description: 'របៀបកំណត់ឱ្យត្រូវចំណុចយាមកាក្នុងកម្មវិធី ArcMap || Georeferencing in ArcMap' },
                 'video-2': { title: 'របៀបតម្លើងកម្មវិធី ArcGIS 10.4.1 || How to install ArcGIS 10.4.1', type: 'video', content: 'https://youtube.com/embed/mre6ORc3YMM', description: 'របៀបតម្លើងកម្មវិធី ArcGIS 10.4.1 || How to install ArcGIS 10.4.1' },
                 'video-3': { title: 'របៀប​បញ្ចូលផែនទី How to add map in to ArcMap', type: 'video', content: 'https://youtube.com/embed/T7XGyzi1tFE', description: 'របៀប​បញ្ចូលផែនទី How to add map in to ArcMap' },
                 'video-4': { title: 'របៀបបញ្ចូល #Photos,#Videos,#Books...ពីComputerទៅ iPhone និងពីIPhone ទៅ Computer ដោយមិនចាំបាច់ដោតឌុយ', type: 'video', content: 'https://youtube.com/embed/6mPOxzAMfyg', description: 'របៀបបញ្ចូល #Photos,#Videos,#Books...ពីComputerទៅ iPhone និងពីIPhone ទៅ Computer ដោយមិនចាំបាច់ដោតឌុយ' },
                 'video-5': { title: 'ទស្សនាទេសភាពផែនទីអំពីទីតាំងស្រុកព្រៃកប្បាសខេត្តកែវ(Prey Kabas​ district Takeo province)', type: 'video', content: 'https://youtube.com/embed/4dgTxsadOAQ', description: 'ទស្សនាទេសភាពផែនទីអំពីទីតាំងស្រុកព្រៃកប្បាសខេត្តកែវ(Prey Kabas​ district Takeo province)' },
+               // ផ្ទាំងផែនទីភូមិសាស្ត្រ
                 'review-img1': { title: 'ពេញលេញ៖ បច្ចេកវិទ្យាក្នុងការទាញយកចំណុចនិយាមការចេញពីទូរស័ព្ទ (Measure Map)', type: 'article', image: './P10.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
                 'review-img2': { title: 'ពេញលេញ៖ ការកាត់ផែនទីវ៉ិចទ័រ និងវ៉ិចទ័រក្នុងកម្មវិធី ArcMap 10.4.1', type: 'article', image: './P5.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
                 'review-img3': { title: 'ពេញលេញ៖ ផែនទីឋានលេខា ១:៣០០.០០០', type: 'article', image: './P12.jpg', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
@@ -942,14 +945,25 @@
                 'review-img6': { title: 'ពេញលេញ៖ ការធ្វើផែនទីបង្ហាញពីសណ្ឋានដី', type: 'article', image: './P19.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
                 'review-img7': { title: 'ពេញលេញ៖ ការកាត់ផែនទីវ៉ិចទ័រ និងវ៉ិចទ័រក្នុងកម្មវិធី ArcMap 10.4.1', type: 'article', image: './P20.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
                 'review-img8': { title: 'ពេញលេញ៖ ផែនទីបង្ហាញសណ្ឋានដី ក្នុងកម្មវិធី AcGIS Pro', type: 'article', image: './P25.png', description: '-បច្ចេកវិទ្យាផែនទីឌីជីថលកំពុងតែមានការកើនឡើង រួមផ្សាំជាមួយបច្ចេកទេស ជាមួយឧបករណ៍បច្ចេកវិទ្យាទំនើបផ្សេងៗទៀត ក្នុងការគូរប្លង់ ធ្វើផែនទីផ្សេងៗ ការហោះថតយករូបភាពពីលើអាកាសយ៉ាងច្បាស់ និងមានយោធាចារ្យដែលមានជំនាញ បទពិសោធន៍សិក្សាមកពីប្រទេស ចិន រុស្សុី ឥណ្តូនេសុី...និងវៀតណាម និងចែករំលែក បើកវគ្គសិក្សាបន្ថែម នៅនាយកដ្ឋានភូមិសាស្រ្ ក្រសួងការពារជាតិដល់កងកម្លាំងយោធា។' },
-                'doc-pdf': { title: 'ការតម្លើងកម្មវិធី ArcGIS (PDF)', type: 'document', content: '<p class="text-white text-center"> https://drive.google.com/file/d/1fDmso7ri49f5ZgaJJtIo10NURVzznN8X/view?usp=sharing"</p>' },
-                'doc-ppt': { title: 'បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ (PowerPoint)', type: 'document', content: '<p class="text-white text-center">មិនអាចបង្ហាញ PowerPoint បានទេ។ សូមផ្តល់តំណសម្រាប់ទាញយក។</p>' },
-                'doc-word': { title: 'ការកំណត់ Coordinate System (Word)', type: 'document', content: '<p class="text-white text-center">មិនអាចបង្ហាញ Word បានទេ។ សូមផ្តល់តំណសម្រាប់ទាញយក។</p>' },
+                // Documents
+                'doc-pdf1': { title: 'ការតម្លើងកម្មវិធី ArcGIS (PDF)', type: 'document', content: 'https://drive.google.com/file/d/1_yaUcJRFDwA4X3opFUCaMBLCFrB-cC8H/view?usp=sharing' },
+                'doc-ppt1': { title: 'បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ (PowerPoint)', type: 'document', content: 'https://drive.google.com/file/d/1_yaUcJRFDwA4X3opFUCaMBLCFrB-cC8H/view?usp=sharing' },
+                'doc-word1': { title: 'ការកំណត់ Coordinate System នៅលើរូបភាពស្កេន (Word)', type: 'document', content: 'https://drive.google.com/drive/u/0/folders/1z3Vq5LsjxoCVyfpl7sCOPkjyBi7-It1U' },
+                'doc-pdf2': { title: 'ការតម្លើងកម្មវិធី ArcGIS (PDF)', type: 'document', content: 'https://drive.google.com/file/d/1_yaUcJRFDwA4X3opFUCaMBLCFrB-cC8H/view?usp=sharing' },
+                'doc-ppt2': { title: 'បទបង្ហាញ៖ ការតម្លើងកម្មវិធី ArcGIS (PowerPoint)', type: 'document', content: 'https://docs.google.com/presentation/d/1tGXZtcjQxJbaTi3BilcVjfnHseqiZLeh/edit?usp=sharing&ouid=109617653389541770153&rtpof=true&sd=true' },
+                'doc-word2': { title: 'ការកំណត់ Coordinate System (Word)', type: 'document', content: 'https://drive.google.com/file/d/1_yaUcJRFDwA4X3opFUCaMBLCFrB-cC8H/edit' },
+                'doc-pdf': { title: 'ការតម្លើងកម្មវិធី ArcGIS (PDF)', type: 'document', content: 'https://drive.google.com/file/d/1_yaUcJRFDwA4X3opFUCaMBLCFrB-cC8H/view?usp=sharing' },
+                'doc-ppt': { title: 'បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ (PowerPoint)', type: 'document', content: 'https://docs.google.com/presentation/d/1cYxkeUMtodsh_lqixvpswos2ugvFHGdD/edit?usp=sharing&ouid=109617653389541770153&rtpof=true&sd=true' },
+                'doc-word': { title: 'ការកំណត់ Coordinate System (Word)', type: 'document', content: 'https://drive.google.com/file/d/1_yaUcJRFDwA4X3opFUCaMBLCFrB-cC8H/edit' },
+                'doc-pdf3': { title: 'ការកំណត់ Coordinate System នៅលើរូបភាពស្កេន', type: 'document', content: 'https://drive.google.com/file/d/12_xJ73QPZYHvgU0oMIM3sYnYFdPBXFTR/view?usp=sharing' },
+                'doc-ppt3': { title: 'បទបង្ហាញ៖ ការបង្កើត File ទិន្នន័យភូមិសាស្ត្រ (PowerPoint)', type: 'document', content: 'https://docs.google.com/presentation/d/1cYxkeUMtodsh_lqixvpswos2ugvFHGdD/edit?usp=sharing&ouid=109617653389541770153&rtpof=true&sd=true' },
+                'doc-word3': { title: 'ការកំណត់ Coordinate System (Word)', type: 'document', content: 'https://drive.google.com/file/d/1_yaUcJRFDwA4X3opFUCaMBLCFrB-cC8H/edit' },
+                // Images
                 'img-00': { title: 'មិត្តរួមជំនាន់ BTV9', type: 'image', image: './P0.jpg' },
                 'img-01': { title: 'បង្រៀនដល់កងរាជអាវុធហត្ថ', type: 'image', image: './P2.jpg' },
                 'img-02': { title: 'ផែនទីឋានលេខា', type: 'image', image: './P9.png' },
                 'img-03': { title: 'ធាតុផ្សំនៃផែនទី', type: 'image', image: './P9.JPG' },
-                'img-04': { title: 'រូបភាពបានមកពីការ Download ចេញពី Google Earth Pro', type: 'image', image: './hd2.jpg' },
+                'img-04': { title: 'សកម្មភាពប្រជុំជាមួយមន្រ្តីបច្ចេកទេសភូមិសាស្រ្តភាគីថៃ', type: 'image', image: './P18.JPG' },
                 'img-05': { title: 'ប្រើ Tools IDW', type: 'image', image: './P17.png' },
                 'img-06': { title: 'ផែនទីឋានលេខា ១:១០០.០០០', type: 'image', image: './P11.jpg' },
                 'img-07': { title: 'ផែនទីឋានលេខា ១:៣០០.០០០', type: 'image', image: './P12.jpg' },
@@ -985,8 +999,14 @@
                     shareUrl = window.location.origin + content.image.substring(1); 
                     shareText = content.title;
                 } else if (content.type === 'document') {
-                    bodyHtml = `<div class="w-full h-[70vh] flex items-center justify-center">${content.content}</div>`;
-                    // For local documents, share the current page and a generic text
+                    // For document type, embed using an iframe if it's a direct link to viewable content
+                    if (content.content.startsWith('http')) {
+                        bodyHtml = `<div class="embed-container bg-black rounded-lg mb-4" style="padding-bottom: 120%; height: 0;"><iframe src="${content.content}" frameborder="0" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>`;
+                        shareUrl = content.content; // Use document URL for sharing
+                    } else {
+                        // Fallback for local or non-embeddable documents
+                        bodyHtml = `<div class="w-full h-[70vh] flex items-center justify-center"><p class="text-white text-center">${content.content}</p></div>`;
+                    }
                     shareText = content.title + " - ឯកសារអំពីផែនទីឌីជីថល"; 
                 }
 
@@ -1002,7 +1022,7 @@
                 facebookShareLink.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
                 facebookShareLink.target = '_blank';
                 facebookShareLink.rel = 'noopener noreferrer';
-                facebookShareLink.className = 'bg-blue-600 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded-full flex items-center space-x-2 transition-colors duration-300';
+                facebookShareLink.className = 'bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full flex items-center space-x-2 transition-colors duration-300';
                 facebookShareLink.innerHTML = `
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33V22C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" />
@@ -1035,5 +1055,6 @@
             });
         });
     </script>
+
 </body>
 </html>
